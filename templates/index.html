@@ -52,6 +52,30 @@
         }
     </style>
     <script>
+        $(document).ready(function () {
+            show_order();
+        });
+
+        function show_order() {
+            $.ajax({
+                type: 'GET',
+                url: '/mars',
+                data: {},
+                success: function (response) {
+                    all_list = response['all_list'];
+                    for(var i=0; i<all_list.length; i++){
+                        let name = all_list[i]['name'];
+                        let address = all_list[i]['address'];
+                        let size = all_list[i]['size'];
+                        let price = all_list[i]['price']
+
+                        let temp_html = `<tr><td>${name}</td><td>${address}</td><td>${size}</td><td>${price}</td></tr>`
+                        $("#list").append(temp_html);
+                    }
+                }
+            });
+        }
+
         function save_order() {
             let name = $("#name").val()
             let address = $("#address").val()

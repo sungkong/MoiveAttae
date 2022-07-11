@@ -3,7 +3,7 @@ app = Flask(__name__)
 
 from pymongo import MongoClient
 client = MongoClient('mongodb+srv://sonsungwoo:s71006248@cluster0.1kvsuvl.mongodb.net/?retryWrites=true&w=majority')
-db = client.dbsparta
+db = client.MovieAttae
 
 @app.route('/')
 def home():
@@ -20,13 +20,13 @@ def web_mars_post():
         'size' : size_receive,
         'price' : int(size_receive.split('평')[0])*500
     }
-    db.mars.insert_one(doc)
+    db.test.insert_one(doc)
     return jsonify({'msg': '주문 완료!'});
 
 @app.route("/mars", methods=["GET"])
 def web_mars_get():
 
-    all_list = list(db.mars.find({}, {'_id': False}))
+    all_list = list(db.test.find({}, {'_id': False}))
     return jsonify({'all_list': all_list});
 
 if __name__ == '__main__':
