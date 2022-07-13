@@ -264,7 +264,7 @@
                                                 </div>
                                             </div>
                                         </div>`
-                        if (i<=3){
+                        if (i >=8) {
                                 $('#cards-box').append(temp_html)
                             }
                     }
@@ -443,9 +443,7 @@
             function to_2page() {
                 window.location.href = "/2page"
             }
-            function to_3page() {
-                window.location.href = "/3page"
-            }
+
 
     </script>
 </head>
@@ -516,15 +514,14 @@
 <button class="button is-danger" onclick="logout()">강제 로그아웃</button>
     <h1></h1>
     <ol class="paging" id="pages">
-        <li onclick=alert("첫페이지입니다") class="first"><a href="#a">첫페이지</a></li>
-        <li onclick=alert("이전페이지가없습니다") class="prev"><a href="#a">이전페이지</a></li>
-        <li class = "on" ><a href="#a">1</a></li>
+        <li onclick='window.location.href = "/"' class="first"><a href="#a">첫페이지</a></li>
+        <li onclick="to_2page()" class="prev"><a href="#a">이전페이지</a></li>
+        <li onclick='window.location.href = "/"'><a href="#a">1</a></li>
         <li onclick="to_2page()"><a href="#a">2</a></li>
-        <li onclick="to_3page()"><a href="#a">3</a></li>
-        <li onclick="to_2page()" class="next"><a href="#a">다음페이지</a></li>
-        <li onclick="to_3page()" class="last"><a href="#a">마지막페이지</a></li>
+        <li class="on"><a href="#a">3</a></li>
+        <li onclick=alert("다음페이지가없습니다") class="next"><a href="#a">다음페이지</a></li>
+        <li onclick=alert("마지막페이지입니다") class="last"><a href="#a">마지막페이지</a></li>
     </ol>
-
 
 
 </body>

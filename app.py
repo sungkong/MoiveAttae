@@ -216,6 +216,15 @@ def movie_update():
     db.movies.update_one({'id': id_receive}, {'$set': {'comment': comment_receive}})
     return jsonify({'msg': '수정 ㅎ Update complete !'})
 
+@app.route('/2page')
+def second():
+    return render_template('2page.html')
+
+@app.route('/3page')
+def third():
+    return render_template('3page.html')
+
+
 
 # 받겠다 (db에서)
 @app.route("/movie", methods=["GET"])
