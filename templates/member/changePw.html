@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+
+    <title></title>
+
+    <style>
+        * {
+            font-family: 'Gowun Batang', serif;
+            color: black;
+        }
+        #wrap {
+            width: 95%;
+            max-width: 300px;
+            margin: 10px auto;
+        }
+        #inputForm > * {
+            margin-top: 20px;
+        }
+        a {
+            text-decoration-line: none;
+        }
+        .warning {
+            margin-top : 5px;
+            color : red;
+            display : none;
+        }
+    </style>
+    <script>
+
+        var pwCheckFlag = false;
+        $(function(){
+            Kakao.init('03c25a5a3c2250061760a2a4c5d5b6b8');
+
+            $('#memberPw, #memberPwCheck').keyup( function() {
+              pwCheck();
+
+            });
+        })
+        function changePw() {
+                if(pwCheckFlag == false){
+                    alert('비밀번호를 확인하세요')
+                    return false;
+                } else {
+                    $.ajax({
+                    type: "POST",
+                    url: "/member/changePw",
+                    data: {
+                        id_give: $('#memberId').val(),
+                        pw_give: $('#memberPw').val()
+                    },
+                    success: function (response) {
+                        if (response['result'] == 'success') {
+                            alert('비밀번호가 변경되었습니다.');
+                            window.location.href = '/';
+                        } else {
+                            alert(response['msg'])
+                        }
+                    }
+                })
+                }
+        }
+
+            function pwCheck() {
+                const pw = $("#memberPw").val();
+                const pwCheck = $("#memberPwCheck").val();
+                if(pw == pwCheck){
+                    $("#pwCheck").hide();
+                    pwCheckFlag = true;
+                } else {
+                    $("#pwCheck").show();
+                    pwCheckFlag = false;
+                }
+            }
+
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <div>
+        <h1 style="text-align : center">비밀번호 재설정</h1>
+        <div class="mb-3" id="inputForm">
+            <input type="text" class="form-control" id="memberId" placeholder="아이디" maxlength="15">
+            <input type="password" class="form-control" id="memberPw" placeholder="비밀번호">
+            <input type="password" class="form-control" id="memberPwCheck" placeholder="비밀번호 확인">
+            <label id="pwCheck" class="warning">비밀번호가 일치하지 않습니다.</label>
+            <div class="d-grid gap-2">
+              <button class="btn btn-danger" type="button" onclick="changePw()">재 설 정</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
